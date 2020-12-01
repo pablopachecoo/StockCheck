@@ -38,7 +38,6 @@ def cls():
 def procurarProdutosKabum(driver):
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
     login = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(expected_conditions.presence_of_all_elements_located((By.XPATH, """//*[@id="listagem-produtos"]/div/div""")))
-    #login = driver.find_elements_by_xpath("""//*[@id="listagem-produtos"]/div/div""")    #pegar o nome e o preço e ver se tem RX 6800 na string
     cls()
     print('****************************************************************************************KABUM*******************************************************************************************')
     inicio = 1
@@ -64,14 +63,12 @@ def procurarProdutosKabum(driver):
         a = x[0]
         c = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(expected_conditions.presence_of_all_elements_located((By.XPATH, xpath2))) #botao comprar
         imagem = c[0].find_element_by_xpath("""//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[2]/div[2]/div/img""")
-        compravel = imagem.get_attribute("src")
-        if compravel == 'https://static.kabum.com.br/conteudo/temas/001/imagens/icones/comprar.png':
+        disponivel = imagem.get_attribute("src")
+        if disponivel == 'https://static.kabum.com.br/conteudo/temas/001/imagens/icones/comprar.png':
             disponiveis.append(a)
             print(nomePlaca[0].text, ' KABUM Disponivel')
-            playsound('C:/Users/power/bot/trem.wav')
+            playsound('trem.wav')
         else:
-            #print(nomePlaca[0].text, '%50s' %  ' | KABUM Indisponível')
-            #bcolors.WARNING + "Status" + bcolors.ENDC
             print (bcolors.FAIL + "Modelo:" + bcolors.ENDC +  "%-*s   Status: %s" % (150,nomePlaca[0].text,bcolors.FAIL + " Indisponível" + bcolors.ENDC))
         firstProduto += 1
     print("Temos ", len(disponiveis), " produtos que atendem a esses requisitos")

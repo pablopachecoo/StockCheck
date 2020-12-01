@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-
+from funcoes.prints import capturar 
 from playsound import playsound
 
 def cls():
@@ -40,12 +40,16 @@ def procurarProdutosPichau(driver):
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
     firstProduto = 1
     for p in produtos:
+        ordem = produtos.index(p)+1
+        ximagemAnuncio = """//*[@id="amasty-shopby-product-list"]/div[2]/ol/li[""" + str(produtos.index(p)+1) + """]"""
         xnomePlaca = """//*[@id="amasty-shopby-product-list"]/div[2]/ol/li[""" + str(produtos.index(p)+1) + """]/div/div/strong/a"""
         nome = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, xnomePlaca))) #botao comprar
+        foto = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, ximagemAnuncio))) #imagem da placa
         if "PRODUTO INDISPONÍVEL" in p.text:
             print("Modelo: %-*s  Status: %s" % (150,nome.text," | Indisponível"))
         else:
-            print("Modelo: %-*s  Status: %s" % (150,nome.text," | Indisponível"))
+            capturar(driver, foto, ordem)
+            print("Modelo: %-*s  Status: %s" % (150,nome.text," | Disponível"))
             disponiveis.append(p)
             playsound('C:/Users/power/bot/trem.wav')
     print("Temos ", len(disponiveis), " produtos que atendem a esses requisitos")
