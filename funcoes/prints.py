@@ -4,10 +4,10 @@ from io import BytesIO
 
 
 
-def capturar(fox, ximagemAnuncio, ordem):
+def capturar(site, ximagemAnuncio, ordem):
     location = ximagemAnuncio.location
     size = ximagemAnuncio.size
-    png = fox.get_screenshot_as_png() # saves screenshot of entire page
+    png = site.get_screenshot_as_png() # saves screenshot of entire page
 
     im = Image.open(BytesIO(png)) # uses PIL library to open image in memory
 

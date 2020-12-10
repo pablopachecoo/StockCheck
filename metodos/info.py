@@ -1,2 +1,0 @@
-def socoro():
-    print('no')

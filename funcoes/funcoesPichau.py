@@ -1,17 +1,15 @@
-import os
 from logging import log
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import os
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from funcoes.prints import capturar 
 from playsound import playsound
+from Metodos.metodos import *
+cls()
 
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
 
 def enterSite(url):
     url = 'https://www.pichau.com.br/hardware/placa-de-video?rgpu=6336%2C6337'
@@ -22,7 +20,7 @@ def enterSite(url):
     options.add_argument("--window-size=1920,1200")
     driver.get(url)
     return driver
-#
+
 def procurarProdutosPichau(driver):
     produtos = []
     disponiveis=[]
@@ -46,10 +44,10 @@ def procurarProdutosPichau(driver):
         nome = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, xnomePlaca))) #botao comprar
         foto = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, ximagemAnuncio))) #imagem da placa
         if "PRODUTO INDISPONÍVEL" in p.text:
-            print("Modelo: %-*s  Status: %s" % (150,nome.text," | Indisponível"))
+            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
         else:
             capturar(driver, foto, ordem)
-            print("Modelo: %-*s  Status: %s" % (150,nome.text," | Disponível"))
+            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " DISPONÍVEL !" + bcolors.ENDC))
             disponiveis.append(p)
-            playsound('C:/Users/power/bot/trem.wav')
+            playsound('alert.mp3')
     print("Temos ", len(disponiveis), " produtos que atendem a esses requisitos")

@@ -22,7 +22,7 @@ def bypass(var):
     else:
         return '+'
 
-sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6800+16G&btnG=',
+sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6800+16G+&btnG=',
     'www.pichau.com.br/hardware/placa-de-video?rgpu=6336%2C6337',
     'www.terabyteshop.com.br/busca?str=rx+6800+16GB']
 

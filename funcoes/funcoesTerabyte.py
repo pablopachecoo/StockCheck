@@ -1,18 +1,14 @@
-#url = 'https://www.terabyteshop.com.br/busca?str=rx+6800+16GB'
-import os
 from logging import log
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import os
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-
+from Metodos.metodos import *
 from playsound import playsound
 
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
+cls()
 
 def enterSite():
     url = ''
@@ -22,8 +18,6 @@ def enterSite():
     options.add_argument("--window-size=1920,1200")
     driver.get(url)
     return driver
-
-
 
 def procurarProdutosTera(driver):
     produtos = []
@@ -39,4 +33,7 @@ def procurarProdutosTera(driver):
     for p in produtos: #//*[@id="prodarea"]/div[1]/div/div[4]
         nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
         if 'TODOS VENDIDOS' in p.find_element_by_xpath("""//*[@id="prodarea"]/div[1]/div/div[4]""").text:
-            print("Modelo: %-*s  Status: %s" % (100,nome," | Indisponível"))
+            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
+        else:
+            playsound('alert.mp3')
+            print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Indisponível" + bcolors.ENDC))
