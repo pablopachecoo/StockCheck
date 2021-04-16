@@ -29,7 +29,7 @@ sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6800+1
 
 def iniciar():
     options = webdriver.ChromeOptions()
-    driver = webdriver.Chrome('C:/Users/power/Documents/Projecttos/Stock Check py/chromedriver')
+    driver = webdriver.Chrome('chromedriver')
     options.headless = True
     options.add_argument(f"--window-size=1920,1080")
     options.add_argument("--hide-scrollbars")
