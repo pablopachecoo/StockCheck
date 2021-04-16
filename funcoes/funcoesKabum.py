@@ -1,6 +1,5 @@
 from logging import log
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -19,7 +18,8 @@ def procurarProdutosKabum(driver):
     cls()
     print('****************************************************************************************KABUM*******************************************************************************************')
     inicio = 1
-    
+
+
     produtos = []
     ts = []
     disponiveis = []
@@ -33,7 +33,7 @@ def procurarProdutosKabum(driver):
         ts.append(p.find_elements_by_xpath(xpath))
         firstProduto += 1
     firstProduto = 3
-    
+
     for x in ts:
         xpath2 = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[2]/div[2]/div"""
         xnomePlaca = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[1]/a"""

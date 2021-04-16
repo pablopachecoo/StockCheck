@@ -23,7 +23,7 @@ def procurarProdutosTera(driver):
     produtos = []
     login = driver.find_elements_by_xpath("""//*[@id="prodarea"]/div""")    #pegar o nome e o preço e ver se tem RX 6800 na string
     cls()
-    print('****************************************************************************************TERABY***************************************************************************************')
+    print('****************************************************************************************TERABYTE***************************************************************************************')
     inicio = 1
     for x in login:
         if x.get_attribute("class") == 'pbox col-xs-12 col-sm-6 col-md-3':
@@ -31,9 +31,12 @@ def procurarProdutosTera(driver):
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
     firstProduto = 1
     for p in produtos: #//*[@id="prodarea"]/div[1]/div/div[4]
-        nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
+        #nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
+        nome = p.text
         if 'TODOS VENDIDOS' in p.find_element_by_xpath("""//*[@id="prodarea"]/div[1]/div/div[4]""").text:
             print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
+        if "PC" in nome:
+            continue
         else:
+            print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Disponível" + bcolors.ENDC))
             playsound('alert.mp3')
-            print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Indisponível" + bcolors.ENDC))
