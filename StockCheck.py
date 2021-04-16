@@ -8,9 +8,9 @@ import itertools
 import undetected_chromedriver as uc
 import logging
 from selenium.webdriver.remote.remote_connection import LOGGER
-from PIL import Image
 from random import randrange
-import os
+from selenium import webdriver
+
 
 LOGGER.setLevel(logging.WARNING)
 
@@ -28,8 +28,9 @@ sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6800+1
 
 
 def iniciar():
-    options = uc.ChromeOptions()
-    options.add_argument("--headless")
+    options = webdriver.ChromeOptions()
+    driver = webdriver.Chrome('C:/Users/power/Documents/Projecttos/Stock Check py/chromedriver')
+    options.headless = True
     options.add_argument(f"--window-size=1920,1080")
     options.add_argument("--hide-scrollbars")
     options.add_argument("--log-level=3")
@@ -37,39 +38,40 @@ def iniciar():
     options.add_argument('--profile-directory=Default')
     options.add_argument("--incognito")
     options.add_argument("--disable-plugins-discovery");
-    chrome = uc.Chrome(options=options)
-    chrome.delete_all_cookies()
-    return chrome
+    driver = uc.Chrome(options=options)
+    #chrome.delete_all_cookies()
+    return driver
 
 driver = iniciar()
 for site in itertools.cycle(sites):
     adrs = "https://" + str(site)
-    wait = randrange(20,110)
+    print()
+    #wait = randrange(20,110)
     if "kabum" in adrs:
         driver.get(adrs)
-        time.sleep(wait)
+        #time.sleep(wait)
         try:
             procurarProdutosKabum(driver)
         except(TimeoutException):
-            print('erro Kabuuuuuuuuuuum')
+            print('erro Kabum')
             driver.save_screenshot('errokabum.png')
             driver.close
     if "pichau" in adrs:
         driver.get(adrs)
-        time.sleep(wait)
+        #time.sleep(wait)
         try:
             procurarProdutosPichau(driver)
         except(TimeoutException):
-            print('erro na pichaaaaaaaaaaaaaaaaaaaaaaaaaaau')
+            print('erro na Pichau')
             driver.save_screenshot('erropichau.png')
             time.sleep(1)
     if "terabyteshop" in adrs:
         driver.get(adrs)
-        time.sleep(wait)
+        #time.sleep(wait)
         try:
             procurarProdutosTera(driver)
         except(TimeoutException):
-            print('erro na Terabyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyte')
+            print('erro na Terabyte')
             driver.save_screenshot('erroterabyte.png')
             driver.close
     vari += 1
