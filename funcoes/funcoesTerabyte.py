@@ -23,13 +23,11 @@ def procurarProdutosTera(driver):
     produtos = []
     login = driver.find_elements_by_xpath("""//*[@id="prodarea"]/div""")    #pegar o nome e o preço e ver se tem RX 6800 na string
     cls()
-    print('****************************************************************************************TERABYTE***************************************************************************************')
-    inicio = 1
+    print('****************************************************************************************Terabyte Shop***************************************************************************************')
     for x in login:
         if x.get_attribute("class") == 'pbox col-xs-12 col-sm-6 col-md-3':
             produtos.append(x)
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
-    firstProduto = 1
     for p in produtos: #//*[@id="prodarea"]/div[1]/div/div[4]
         #nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
         nome = p.text

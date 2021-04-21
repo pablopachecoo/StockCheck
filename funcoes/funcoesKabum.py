@@ -16,8 +16,7 @@ def procurarProdutosKabum(driver):
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
     login = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, """//*[@id="listagem-produtos"]/div/div""")))
     cls()
-    print('****************************************************************************************KABUM*******************************************************************************************')
-    inicio = 1
+    print('****************************************************************************************Kabum*******************************************************************************************')
 
 
     produtos = []

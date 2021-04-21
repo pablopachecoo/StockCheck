@@ -8,7 +8,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from funcoes.prints import capturar 
 from playsound import playsound
 from Metodos.metodos import *
-cls()
+
 
 
 def enterSite(url):
@@ -26,8 +26,7 @@ def procurarProdutosPichau(driver):
     disponiveis=[]
     login = driver.find_elements_by_xpath("""//*[@id="amasty-shopby-product-list"]/div[2]/ol/li""")    #pegar o nome e o preço e ver se tem RX 6800 na string
     cls()
-    print('****************************************************************************************PICHAU***************************************************************************************')
-    inicio = 1
+    print('****************************************************************************************Pichau***************************************************************************************')
     for x in login:
         if x.get_attribute("class") == 'item product product-item':
             #print(x.text)
@@ -36,7 +35,6 @@ def procurarProdutosPichau(driver):
             print('**div não é um produto**')
 
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
-    firstProduto = 1
     for p in produtos:
         ordem = produtos.index(p)+1
         ximagemAnuncio = """//*[@id="amasty-shopby-product-list"]/div[2]/ol/li[""" + str(produtos.index(p)+1) + """]"""
