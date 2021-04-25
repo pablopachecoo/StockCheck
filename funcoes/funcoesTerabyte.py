@@ -7,8 +7,14 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from Metodos.metodos import *
 from playsound import playsound
+import threading
+from threading import Thread
 
 cls()
+
+def tocarSom():
+    return playsound('alert.mp3', block = False)
+    
 
 def enterSite():
     url = ''
@@ -37,4 +43,8 @@ def procurarProdutosTera(driver):
             continue
         else:
             print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Disponível" + bcolors.ENDC))
-            playsound('alert.mp3')
+            encontrado = Thread(target = tocarSom())
+            encontrado.run
+            tocarSom()
+            if encontrado.is_alive:
+                continue

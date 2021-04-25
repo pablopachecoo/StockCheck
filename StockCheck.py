@@ -11,7 +11,6 @@ from selenium.webdriver.remote.remote_connection import LOGGER
 from random import randrange
 from selenium import webdriver
 
-
 LOGGER.setLevel(logging.WARNING)
 
 vari = 1
