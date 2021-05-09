@@ -13,7 +13,7 @@ from threading import Thread
 cls()
 
 def tocarSom():
-    return playsound('alert.mp3', block = False)
+    return playsound('alert.mp3', block = True)
     
 
 def enterSite():
@@ -37,14 +37,12 @@ def procurarProdutosTera(driver):
     for p in produtos: #//*[@id="prodarea"]/div[1]/div/div[4]
         #nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
         nome = p.text
-        if 'TODOS VENDIDOS' in p.find_element_by_xpath("""//*[@id="prodarea"]/div[1]/div/div[4]""").text:
-            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
+        if 'COMPRAR' in nome:
+            print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Disponível" + bcolors.ENDC))
+            tocarSom()
+            # indisponivel  print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
         if "PC" in nome:
             continue
         else:
-            print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Disponível" + bcolors.ENDC))
-            encontrado = Thread(target = tocarSom())
-            encontrado.run
-            tocarSom()
-            if encontrado.is_alive:
-                continue
+            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
+

@@ -11,35 +11,33 @@ from selenium.webdriver.remote.remote_connection import LOGGER
 from random import randrange
 from selenium import webdriver
 
+
+import decimal
+
 LOGGER.setLevel(logging.WARNING)
 
-vari = 1
+limite = decimal.Decimal(13000.00)
 
-def bypass(var):
-    if (var % 2) == 0:
-        return ''
-    else:
-        return '+'
-
-sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6800+16G+&btnG=',
-    'www.pichau.com.br/hardware/placa-de-video?rgpu=6336%2C6337',
-    'www.terabyteshop.com.br/busca?str=rx+6800+16GB']
-
+sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6900+16G&btnG=',
+    'www.pichau.com.br/hardware/placa-de-video?rgpu=6347',
+    'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
 
 def iniciar():
-    options = webdriver.ChromeOptions()
-    driver = webdriver.Chrome('chromedriver')
-    options.headless = True
-    options.add_argument(f"--window-size=1920,1080")
-    options.add_argument("--hide-scrollbars")
-    options.add_argument("--log-level=3")
-    options.add_argument('--disable-extensions')
-    options.add_argument('--profile-directory=Default')
-    options.add_argument("--incognito")
-    options.add_argument("--disable-plugins-discovery");
-    driver = uc.Chrome(options=options)
+    crome_options = webdriver.ChromeOptions()
+    crome_options.add_argument('--headless')
+    crome_options.add_argument(f"--window-size=1920,1080")
+    crome_options.add_argument("--hide-scrollbars")
+    crome_options.add_argument("--log-level=3")
+    crome_options.add_argument('--disable-extensions')
+    crome_options.add_argument('--profile-directory=Default')
+    crome_options.add_argument("--incognito")
+    crome_options.add_argument("--disable-plugins-discovery");
+    crome_options.add_argument('--headless')
+    driver = webdriver.Chrome('chromedriver', options=crome_options)
+    driver = uc.Chrome(options=crome_options)
     #chrome.delete_all_cookies()
     return driver
+
 
 driver = iniciar()
 for site in itertools.cycle(sites):
@@ -50,7 +48,7 @@ for site in itertools.cycle(sites):
         driver.get(adrs)
         #time.sleep(wait)
         try:
-            procurarProdutosKabum(driver)
+            procurarProdutosKabum(driver, limite)
         except(TimeoutException):
             print('erro Kabum')
             driver.save_screenshot('errokabum.png')
@@ -61,7 +59,7 @@ for site in itertools.cycle(sites):
         try:
             procurarProdutosPichau(driver)
         except(TimeoutException):
-            print('erro na Pichau')
+            print('Erro na Pichau')
             driver.save_screenshot('erropichau.png')
             time.sleep(1)
     if "terabyteshop" in adrs:
@@ -73,5 +71,4 @@ for site in itertools.cycle(sites):
             print('erro na Terabyte')
             driver.save_screenshot('erroterabyte.png')
             driver.close
-    vari += 1
 driver.quit()
