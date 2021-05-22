@@ -25,7 +25,9 @@ def enterSite():
     driver.get(url)
     return driver
 
-def procurarProdutosTera(driver):
+def procurarProdutosTera(driver, limite):
+   
+
     produtos = []
     login = driver.find_elements_by_xpath("""//*[@id="prodarea"]/div""")    #pegar o nome e o preço e ver se tem RX 6800 na string
     cls()
@@ -34,15 +36,25 @@ def procurarProdutosTera(driver):
         if x.get_attribute("class") == 'pbox col-xs-12 col-sm-6 col-md-3':
             produtos.append(x)
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
+    atual = 1
     for p in produtos: #//*[@id="prodarea"]/div[1]/div/div[4]
+
+        preco = driver.find_elements_by_xpath("""//*[@id="prodarea"]/div["""+str(atual)+"""]/div/div[4]/div[1]/div[2]/span""")
+        precoTexto = preco[0].text
+        precoTexto = formatar(precoTexto)
+
         #nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
         nome = p.text
         if 'COMPRAR' in nome:
-            print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Disponível" + bcolors.ENDC))
-            tocarSom()
+            if int(float(precoTexto)) <= limite:
+                print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Disponível |" + bcolors.ENDC))
+                
+            else :
+                print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.WARNING + " TAKARO ™ |" + bcolors.ENDC))            
             # indisponivel  print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
         if "PC" in nome:
             continue
         else:
-            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
+            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível |" + bcolors.ENDC))
+        atual+1
 

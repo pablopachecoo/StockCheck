@@ -11,16 +11,6 @@ from Metodos.metodos import *
 
 
 
-def enterSite(url):
-    url = 'https://www.pichau.com.br/hardware/placa-de-video?rgpu=6336%2C6337'
-    DRIVER_PATH = 'chromedriver.exe'
-    options = Options()
-    options.headless = True
-    driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
-    options.add_argument("--window-size=1920,1200")
-    driver.get(url)
-    return driver
-
 def procurarProdutosPichau(driver):
     produtos = []
     disponiveis=[]

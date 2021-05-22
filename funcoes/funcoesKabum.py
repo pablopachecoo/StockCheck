@@ -23,8 +23,6 @@ def procurarProdutosKabum(driver, limite):
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
 
 
-
-
     login = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, """//*[@id="listagem-produtos"]/div/div""")))
     cls()
     print('****************************************************************************************Kabum*******************************************************************************************')
@@ -97,7 +95,7 @@ def procurarProdutosKabum(driver, limite):
         c = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, xpath2))) #botao comprar
         imagem = c[0].find_element_by_xpath("""//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[2]/div[2]/div/img""")
         disponivel = imagem.get_attribute("src")
-        
+
         if disponivel == 'https://static.kabum.com.br/conteudo/temas/001/imagens/icones/comprar.png':
             if int(float(precos[indexValores])) <= limite:
                 disponiveis.append(ts[indexValores])
@@ -107,7 +105,8 @@ def procurarProdutosKabum(driver, limite):
                 print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nomePlaca[0].text, bcolors.BOLD + "Status:" + bcolors.WARNING + babel.numbers.format_currency(precos[indexValores], 'BRL') + '    | TAKARO ™ ' + bcolors.ENDC))
         else:
             print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nomePlaca[0].text, bcolors.BOLD + "Status:" + bcolors.FAIL + babel.numbers.format_currency(precos[indexValores], 'BRL') + '    | ESGOTADO ' + bcolors.ENDC))
-        
+
         firstProduto += 1
         indexValores += 1
     print("Temos ", len(disponiveis), " produtos que atendem a esses requisitos")
+    

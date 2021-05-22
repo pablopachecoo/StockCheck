@@ -10,17 +10,16 @@ import logging
 from selenium.webdriver.remote.remote_connection import LOGGER
 from random import randrange
 from selenium import webdriver
-
-
 import decimal
 
 LOGGER.setLevel(logging.WARNING)
 
-limite = decimal.Decimal(13000.00)
+limite = decimal.Decimal(13500.00)
 
 sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6900+16G&btnG=',
     'www.pichau.com.br/hardware/placa-de-video?rgpu=6347',
     'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
+
 
 def iniciar():
     crome_options = webdriver.ChromeOptions()
@@ -43,30 +42,35 @@ driver = iniciar()
 for site in itertools.cycle(sites):
     adrs = "https://" + str(site)
     print()
-    #wait = randrange(20,110)
+    
     if "kabum" in adrs:
+        wait = randrange(15,30)
         driver.get(adrs)
-        #time.sleep(wait)
+        time.sleep(wait)
         try:
             procurarProdutosKabum(driver, limite)
         except(TimeoutException):
             print('erro Kabum')
             driver.save_screenshot('errokabum.png')
             driver.close
+
     if "pichau" in adrs:
+        wait = randrange(15,30)
         driver.get(adrs)
         #time.sleep(wait)
         try:
-            procurarProdutosPichau(driver)
+            procurarProdutosPichau(driver, limite)
         except(TimeoutException):
             print('Erro na Pichau')
             driver.save_screenshot('erropichau.png')
             time.sleep(1)
+
     if "terabyteshop" in adrs:
+        wait = randrange(15,30)
         driver.get(adrs)
         #time.sleep(wait)
         try:
-            procurarProdutosTera(driver)
+            procurarProdutosTera(driver, limite)
         except(TimeoutException):
             print('erro na Terabyte')
             driver.save_screenshot('erroterabyte.png')

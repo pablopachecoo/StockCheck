@@ -13,3 +13,11 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+
+
+def formatar(precoTexto):
+    precoTexto = precoTexto.replace('.','')
+    precoTexto = precoTexto.replace(',','.')
+    precoTexto = precoTexto.replace(' ','')
+    return precoTexto.replace('R$', '')
