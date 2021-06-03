@@ -5,7 +5,7 @@ from funcoes.funcoesTerabyte import procurarProdutosTera
 import time
 from logging import log
 import itertools
-import undetected_chromedriver as uc
+import undetected_chromedriver.v2 as uc
 import logging
 from selenium.webdriver.remote.remote_connection import LOGGER
 from random import randrange
@@ -17,13 +17,13 @@ LOGGER.setLevel(logging.WARNING)
 limite = decimal.Decimal(13500.00)
 
 sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6900+16G&btnG=',
-    'www.pichau.com.br/hardware/placa-de-video?rgpu=6347',
+    
     'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
 
 
 def iniciar():
-    crome_options = webdriver.ChromeOptions()
-    crome_options.add_argument('--headless')
+    crome_options = uc.ChromeOptions()
+    #crome_options.add_argument('--headless')
     crome_options.add_argument(f"--window-size=1920,1080")
     crome_options.add_argument("--hide-scrollbars")
     crome_options.add_argument("--log-level=3")
@@ -31,8 +31,8 @@ def iniciar():
     crome_options.add_argument('--profile-directory=Default')
     crome_options.add_argument("--incognito")
     crome_options.add_argument("--disable-plugins-discovery");
-    crome_options.add_argument('--headless')
-    driver = webdriver.Chrome('chromedriver', options=crome_options)
+    #crome_options.add_argument('--headless')
+    #driver = webdriver.Chrome(r'C:/Users/power/Documents/Projecttos/Stock Check py/chromedriver', options=crome_options)
     driver = uc.Chrome(options=crome_options)
     #chrome.delete_all_cookies()
     return driver

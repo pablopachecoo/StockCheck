@@ -11,7 +11,7 @@ from Metodos.metodos import *
 
 
 
-def procurarProdutosPichau(driver):
+def procurarProdutosPichau(driver, limite):
     produtos = []
     disponiveis=[]
     login = driver.find_elements_by_xpath("""//*[@id="amasty-shopby-product-list"]/div[2]/ol/li""")    #pegar o nome e o preço e ver se tem RX 6800 na string
