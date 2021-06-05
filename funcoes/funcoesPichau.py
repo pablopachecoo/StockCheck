@@ -12,9 +12,10 @@ from Metodos.metodos import *
 
 
 def procurarProdutosPichau(driver, limite):
+    #//*[@id="__next"]/main/div[2]/div/div[1]/div[2]/div[1] --> Primeiro produtO
     produtos = []
     disponiveis=[]
-    login = driver.find_elements_by_xpath("""//*[@id="amasty-shopby-product-list"]/div[2]/ol/li""")    #pegar o nome e o preço e ver se tem RX 6800 na string
+    login = driver.find_elements_by_xpath("""//*[@id="__next"]/main/div[2]/div/div[1]/div[2]""")    #pegar o nome e o preço e ver se tem RX 6800 na string
     cls()
     print('****************************************************************************************Pichau***************************************************************************************')
     for x in login:

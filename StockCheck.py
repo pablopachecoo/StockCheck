@@ -17,7 +17,7 @@ LOGGER.setLevel(logging.WARNING)
 limite = decimal.Decimal(13500.00)
 
 sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6900+16G&btnG=',
-    
+
     'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
 
 
