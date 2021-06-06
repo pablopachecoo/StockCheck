@@ -43,8 +43,12 @@ def procurarProdutosTera(driver, limite):
         precoTexto = preco[0].text
         precoTexto = formatar(precoTexto)
 
-        #nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
-        nome = p.text
+        try:
+            nome = p.find_element_by_xpath("""//*[@id="prodarea"]/div["""+str(produtos.index(p)+1)+"""]/div/div[3]/a/h2/strong""").text
+        except:
+            continue
+                
+        #nome = p.find_element_by_xpath()
         if 'COMPRAR' in nome:
             if int(float(precoTexto)) <= limite:
                 print (bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " Disponível |" + bcolors.ENDC))

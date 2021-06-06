@@ -16,14 +16,14 @@ LOGGER.setLevel(logging.WARNING)
 
 limite = decimal.Decimal(13500.00)
 
-sites = ['www.kabum.com.br/cgi-local/site/listagem/listagem.cgi?string=Rx+6900+16G&btnG=',
-
+sites = [
+    
     'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
 
 
 def iniciar():
     crome_options = uc.ChromeOptions()
-    #crome_options.add_argument('--headless')
+    crome_options.add_argument('--headless')
     crome_options.add_argument(f"--window-size=1920,1080")
     crome_options.add_argument("--hide-scrollbars")
     crome_options.add_argument("--log-level=3")
@@ -55,7 +55,6 @@ for site in itertools.cycle(sites):
             driver.close
 
     if "pichau" in adrs:
-        wait = randrange(15,30)
         driver.get(adrs)
         #time.sleep(wait)
         try:

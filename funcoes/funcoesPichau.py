@@ -13,13 +13,14 @@ from Metodos.metodos import *
 
 def procurarProdutosPichau(driver, limite):
     #//*[@id="__next"]/main/div[2]/div/div[1]/div[2]/div[1] --> Primeiro produtO
+    #//*[@id="__next"]/main/div[2]/div/div[1]/div[2]/div[2]
     produtos = []
     disponiveis=[]
     login = driver.find_elements_by_xpath("""//*[@id="__next"]/main/div[2]/div/div[1]/div[2]""")    #pegar o nome e o preço e ver se tem RX 6800 na string
     cls()
     print('****************************************************************************************Pichau***************************************************************************************')
     for x in login:
-        if x.get_attribute("class") == 'item product product-item':
+        if x.get_attribute("class") == 'MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4 MuiGrid-grid-lg-3 MuiGrid-grid-xl-2':
             #print(x.text)
             produtos.append(x)
         else:
