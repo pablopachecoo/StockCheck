@@ -99,8 +99,9 @@ def procurarProdutosKabum(driver, limite):
         if disponivel == 'https://static.kabum.com.br/conteudo/temas/001/imagens/icones/comprar.png':
             if int(float(precos[indexValores])) <= limite:
                 disponiveis.append(ts[indexValores])
+                
                 print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nomePlaca[0].text, bcolors.BOLD + "Status:" + bcolors.OKBLUE + "    | DISPONÍVEL " + bcolors.ENDC))
-                playsound('alert.mp3') #se tocar o som pela função toca 2x
+                #playsound('alert.mp3') #se tocar o som pela função toca 2x
             else:
                 print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nomePlaca[0].text, bcolors.BOLD + "Status:" + bcolors.WARNING + babel.numbers.format_currency(precos[indexValores], 'BRL') + '    | TAKARO ™ ' + bcolors.ENDC))
         else:
@@ -109,4 +110,5 @@ def procurarProdutosKabum(driver, limite):
         firstProduto += 1
         indexValores += 1
     print("Temos ", len(disponiveis), " produtos que atendem a esses requisitos")
+    return(disponiveis)
     
