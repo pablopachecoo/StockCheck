@@ -13,7 +13,7 @@ api = Api(app)
 
 limite = decimal.Decimal(13500.00)
 
-@app.route('/')
+@app.route('/kabum')
 def query_example():
     
     driver = iniciar()
