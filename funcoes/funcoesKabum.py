@@ -7,7 +7,6 @@ from playsound import playsound
 from Metodos.metodos import *
 from threading import Thread
 import decimal
-import babel.numbers
 
 produtos = []
 ts = []
@@ -45,6 +44,8 @@ def procurarProdutosKabum(driver, limite):
         talvezPreco = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, xpathPreco)))
         tamanhofonte = talvezPreco[0].value_of_css_property("font-size")
         if tamanhofonte == '21px': #Se o tamanho da fonte for a do Preço
+
+            #Vou refatorar isso, eu juro.
             a = talvezPreco[0].text.replace('R$', '')
             b = a.replace(' ', '')
             c = b.replace('.',' ')
