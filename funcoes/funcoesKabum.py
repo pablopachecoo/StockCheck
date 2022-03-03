@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from playsound import playsound
 from Metodos.metodos import *
 from threading import Thread
+import babel.numbers
 import decimal
 
 produtos = []
@@ -16,13 +17,14 @@ disponiveis=[]
 def compararPrecos():
     print('preco')
 
-def procurarProdutosKabum(driver, limite):
+def procurarProdutosKabum(driver, limite):  
     firstProduto = 3
     pegarPreco = 3
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
 
 
-    login = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, """//*[@id="listagem-produtos"]/div/div""")))
+    login = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, """.//*[@id="listing"]/article/section/div[2]/div/main""")))
+    login = driver.find_elements(By.XPATH, """.//*[@id="listing"]/article/section/div[2]/div/main""")
     cls()
     print('****************************************************************************************Kabum*******************************************************************************************')
 
@@ -33,9 +35,9 @@ def procurarProdutosKabum(driver, limite):
     ts = []
     disponiveis = []
     precos = []
-    
+
     for x in login:
-        if x.get_attribute("class") == 'sc-fzqARJ eITELq':
+        if x.get_attribute("class") == 'sc-GEbAx odTaK productCard':
             produtos.append(x)
     
 

@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-from funcoes.prints import capturar 
+#from funcoes.prints import capturar 
 from playsound import playsound
 from Metodos.metodos import *
 
@@ -36,7 +36,7 @@ def procurarProdutosPichau(driver, limite):
         if "PRODUTO INDISPONÍVEL" in p.text:
             print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
         else:
-            capturar(driver, foto, ordem)
+            #capturar(driver, foto, ordem)
             print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " DISPONÍVEL !" + bcolors.ENDC))
             disponiveis.append(p)
             playsound('alert.mp3')

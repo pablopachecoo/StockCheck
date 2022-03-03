@@ -13,17 +13,17 @@ from threading import Thread
 cls()
 
 def tocarSom():
-    return playsound('alert.mp3', block = True)
+    return playsound('alert.mp3', block = False)
     
 
-def enterSite():
-    url = ''
-    DRIVER_PATH = 'chromedriver.exe'
-    options = Options()
-    driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
-    options.add_argument("--window-size=1920,1200")
-    driver.get(url)
-    return driver
+# def enterSite():
+#     url = ''
+#     DRIVER_PATH = 'chromedriver.exe'
+#     options = Options()
+#     driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
+#     options.add_argument("--window-size=1920,1200")
+#     driver.get(url)
+#     return driver
 
 def procurarProdutosTera(driver, limite):
    
