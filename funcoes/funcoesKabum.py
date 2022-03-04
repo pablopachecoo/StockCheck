@@ -9,18 +9,22 @@ from threading import Thread
 import babel.numbers
 import decimal
 
+#lista dos produtos
 produtos = []
+
 ts = []
-listadosProdutos = 0
+listaDosProdutos = 0
 disponiveis=[]
 
 def compararPrecos():
     print('preco')
 
 def procurarProdutosKabum(driver, limite):  
-    firstProduto = 3
+
     pegarPreco = 3
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
+    
+    listaProdutos = driver.find_elements_by_css_selector('div.sc-GEbAx.odTaK.productCard') #Encontra os cards dos Produtos
 
 
     login = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, """.//*[@id="listing"]/article/section/div[2]/div/main""")))
@@ -31,60 +35,64 @@ def procurarProdutosKabum(driver, limite):
     def playy():
         playsound('alert.mp3', block = False)
 
-    produtos = []
+    #produtos = []
     ts = []
     disponiveis = []
     precos = []
 
-    for x in login:
-        if x.get_attribute("class") == 'sc-GEbAx odTaK productCard':
-            produtos.append(x)
+    # for x in listaProdutos:
+    #     if x.get_attribute("class") == 'sc-GEbAx odTaK productCard':
+    #         produtos.append(x)
     
 
-    for p in produtos:
-        xpathPreco = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[2]/div[1]/div["""+ str(pegarPreco) + """]"""
-        talvezPreco = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, xpathPreco)))
-        tamanhofonte = talvezPreco[0].value_of_css_property("font-size")
-        if tamanhofonte == '21px': #Se o tamanho da fonte for a do Preço
+    for p in listaProdutos:
+        #xpathPreco = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[2]/div[1]/div["""+ str(pegarPreco) + """]"""
+        #talvezPreco = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, xpathPreco)))
 
-            #Vou refatorar isso, eu juro.
-            a = talvezPreco[0].text.replace('R$', '')
-            b = a.replace(' ', '')
-            c = b.replace('.',' ')
-            d = c.replace(',','.')
-            b = d.replace(' ', '')
-            currency = "{:,.2f}".format(int(float(b)))
-            a = str(currency)
-            b = a.replace(',', '.')
-            b = a.replace(',', '')
-            #print(b)
-            precos.append(b) ##aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+        precoProduto = p.find_element(By.CSS_SELECTOR, 'span.sc-iNGGcK.fTkZBN.priceCard').text
+        if Decimal(precoProduto) > limite:
+            listaProdutos.remove(p)
+        # tamanhofonte = talvezPreco[0].value_of_css_property("font-size")
+        # if tamanhofonte == '21px': #Se o tamanho da fonte for a do Preço
+
+        #     #Vou refatorar isso, eu juro.
+        #     a = talvezPreco[0].text.replace('R$', '')
+        #     b = a.replace(' ', '')
+        #     c = b.replace('.',' ')
+        #     d = c.replace(',','.')
+        #     b = d.replace(' ', '')
+        #     currency = "{:,.2f}".format(int(float(b)))
+        #     a = str(currency)
+        #     b = a.replace(',', '.')
+        #     b = a.replace(',', '')
+        #     #print(b)
+        #     precos.append(b) ##aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 
 
-        if tamanhofonte == '10px': #Se o tamanho da fonte for a do "Em até 12x sem juros" (pegando +1 div depois)
-            pegarPreco = 4
-            xpathPreco = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[2]/div[1]/div["""+ str(pegarPreco) + """]"""
-            talvezPreco = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, xpathPreco)))
-            a = talvezPreco[0].text.replace('R$', '')
-            b = a.replace(' ', '')
-            c = b.replace('.',' ')
-            d = c.replace(',','.')
-            b = d.replace(' ', '')
+        # if tamanhofonte == '10px': #Se o tamanho da fonte for a do "Em até 12x sem juros" (pegando +1 div depois)
+        #     pegarPreco = 4
+        #     xpathPreco = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div/div[2]/div[1]/div["""+ str(pegarPreco) + """]"""
+        #     talvezPreco = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_all_elements_located((By.XPATH, xpathPreco)))
+        #     a = talvezPreco[0].text.replace('R$', '')
+        #     b = a.replace(' ', '')
+        #     c = b.replace('.',' ')
+        #     d = c.replace(',','.')
+        #     b = d.replace(' ', '')
             
-            currency = "{:,.2f}".format(int(float(b)))
-            #print(currency)
-            a = str(currency)
-            #print(a)
-            b = a.replace(',', '.')
-            b = a.replace(',', '')
-            #print(b)
-            precos.append(b)
+        #     currency = "{:,.2f}".format(int(float(b)))
+        #     #print(currency)
+        #     a = str(currency)
+        #     #print(a)
+        #     b = a.replace(',', '.')
+        #     b = a.replace(',', '')
+        #     #print(b)
+        #     precos.append(b)
 
 
-        xpath = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div"""
-        ts.append(p.find_elements_by_xpath(xpath))
-        pegarPreco = 3
-        firstProduto += 1
+        # xpath = """//*[@id="listagem-produtos"]/div/div["""+ str(firstProduto) + """]/div"""
+        # ts.append(p.find_elements_by_xpath(xpath))
+        # pegarPreco = 3
+        # firstProduto += 1
 
 
     #sc-fznWqX qatGF ---- *CLASS DO PRECO*

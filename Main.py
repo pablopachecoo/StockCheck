@@ -32,7 +32,7 @@ def iniciar():
     crome_options.add_argument('--profile-directory=Default')
     crome_options.add_argument("--incognito")
     crome_options.add_argument("--disable-plugins-discovery");
-    crome_options.add_argument('--headless')
+
     driver = webdriver.Chrome(r'./chromedriver.exe', options=crome_options)
     #chrome.delete_all_cookies()
     return driver
