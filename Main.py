@@ -14,7 +14,7 @@ from selenium import webdriver
 
 LOGGER.setLevel(logging.WARNING)
 
-limite = float(9000.00)
+limite = float(300.00)
 
 
 sites = ['www.kabum.com.br/busca?query=oooi',

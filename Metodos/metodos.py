@@ -15,7 +15,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-#formata o preco do texto pra um Decimal
+#Remove "R$" e espaços em branco
 def formatar(precoTexto):
     precoTexto = precoTexto.replace('.','')
     precoTexto = precoTexto.replace(',','.')
