@@ -15,9 +15,9 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-
+#formata o preco do texto pra um Decimal
 def formatar(precoTexto):
     precoTexto = precoTexto.replace('.','')
     precoTexto = precoTexto.replace(',','.')
     precoTexto = precoTexto.replace(' ','')
-    return precoTexto.replace('R$', '')
+    return float(precoTexto.replace('R$', ''))

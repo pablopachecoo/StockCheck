@@ -14,17 +14,17 @@ from selenium import webdriver
 
 LOGGER.setLevel(logging.WARNING)
 
-limite = decimal.Decimal(13500.00)
+limite = float(9000.00)
 
 
-sites = ['www.kabum.com.br/busca?query=rx+6800',
+sites = ['www.kabum.com.br/busca?query=oooi',
      'www.pichau.com.br/hardware/placa-de-video?rgpu=6347',
      'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
 
 
 def iniciar():
     crome_options = uc.ChromeOptions()
-    #crome_options.add_argument('--headless')
+    crome_options.add_argument('--headless')
     #crome_options.add_argument(f"--window-size=800,600")
     crome_options.add_argument("--hide-scrollbars")
     crome_options.add_argument("--log-level=3")
@@ -44,8 +44,7 @@ driver = iniciar()
 
 for site in itertools.cycle(sites):
     adrs = "https://" + str(site)
-    print()
-    
+
     if "kabum" in adrs:
         wait = randrange(15,30)
         driver.get(adrs)

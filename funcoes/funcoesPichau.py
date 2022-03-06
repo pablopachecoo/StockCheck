@@ -27,17 +27,18 @@ def procurarProdutosPichau(driver, limite):
             print('**div não é um produto**')
 
     ignored_exceptions=(NoSuchElementException,StaleElementReferenceException,)
-    for p in produtos:
-        ordem = produtos.index(p)+1
-        ximagemAnuncio = """//*[@id="amasty-shopby-product-list"]/div[2]/ol/li[""" + str(produtos.index(p)+1) + """]"""
-        xnomePlaca = """//*[@id="amasty-shopby-product-list"]/div[2]/ol/li[""" + str(produtos.index(p)+1) + """]/div/div/strong/a"""
-        nome = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, xnomePlaca))) #botao comprar
-        foto = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, ximagemAnuncio))) #imagem da placa
-        if "PRODUTO INDISPONÍVEL" in p.text:
-            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
-        else:
-            #capturar(driver, foto, ordem)
-            print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " DISPONÍVEL !" + bcolors.ENDC))
-            disponiveis.append(p)
-            playsound('alert.mp3')
-    print("Temos ", len(disponiveis), " produtos que atendem a esses requisitos")
+    # for p in produtos:
+    #     ordem = produtos.index(p)+1
+    #     ximagemAnuncio = """//*[@id="amasty-shopby-product-list"]/div[2]/ol/li[""" + str(produtos.index(p)+1) + """]"""
+    #     xnomePlaca = """//*[@id="amasty-shopby-product-list"]/div[2]/ol/li[""" + str(produtos.index(p)+1) + """]/div/div/strong/a"""
+    #     nome = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, xnomePlaca))) #botao comprar
+    #     foto = WebDriverWait(driver, 10,ignored_exceptions=ignored_exceptions).until(EC.presence_of_element_located((By.XPATH, ximagemAnuncio))) #imagem da placa
+    #     if "PRODUTO INDISPONÍVEL" in p.text:
+    #         print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.FAIL + " Indisponível" + bcolors.ENDC))
+    #     else:
+    #         #capturar(driver, foto, ordem)
+    #         print(bcolors.BOLD + "Modelo:" + bcolors.ENDC + "%-*s    %s"% (150,nome.text, bcolors.BOLD + "Status:" + bcolors.OKBLUE + " DISPONÍVEL !" + bcolors.ENDC))
+    #         disponiveis.append(p)
+    #         playsound('alert.mp3')
+        # playsound('alert.mp3')
+        # print("Temos ", len(disponiveis), " produtos disponíveis.")
