@@ -9,7 +9,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from playsound import playsound
 from Metodos.metodos import *
 
-
+#mais um dia de trabalho duro !
 
 def procurarProdutosPichau(driver, limite):
     #//*[@id="__next"]/main/div[2]/div/div[1]/div[2]/div[1] --> Primeiro produtO
