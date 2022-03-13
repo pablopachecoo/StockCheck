@@ -9,6 +9,7 @@ def procurarProdutosKabum(driver, limite):
     cls()
     print('****************************************************************************************Kabum*******************************************************************************************')
     listaProdutos = driver.find_elements_by_css_selector('div.sc-GEbAx.odTaK.productCard') #Encontra os cards dos Produtos
+                                                              #sc-GEbAx.odTaK.productCard
     #Lista dos Produtos
     disponiveis = []
     indisponiveis = []

@@ -21,6 +21,8 @@ sites = ['www.kabum.com.br/busca?query=oooi',
      'www.pichau.com.br/hardware/placa-de-video?rgpu=6347',
      'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
 
+#sites = [     'www.pichau.com.br/hardware/placa-de-video?rgpu=6347', 'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
+
 
 def iniciar():
     crome_options = uc.ChromeOptions()
@@ -41,11 +43,12 @@ def iniciar():
 driver = iniciar()
 
 
-
+#Itertools é um loop Eterno dentro da lista de Sites. ∞
 for site in itertools.cycle(sites):
     adrs = "https://" + str(site)
 
     if "kabum" in adrs:
+        #Esse wait serve pra deixar um tempo de request aleatório entre X e Y segundos
         wait = randrange(15,30)
         driver.get(adrs)
         #time.sleep(wait)
