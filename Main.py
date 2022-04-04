@@ -26,24 +26,30 @@ sites = ['www.kabum.com.br/busca?query=oooi',
 
 def iniciar():
     crome_options = uc.ChromeOptions()
-    crome_options.add_argument('--headless')
-    #crome_options.add_argument(f"--window-size=800,600")
+    #crome_options.add_argument('--headless')
+    crome_options.add_argument('--disable-blink-features=AutomationControlled')
+    crome_options.add_argument("--disable-plugins-discovery")
+    crome_options.add_argument('--disable-extensions')
+    crome_options.add_argument(f"--window-size=1920,1080")
     crome_options.add_argument("--hide-scrollbars")
     crome_options.add_argument("--log-level=3")
-    crome_options.add_argument('--disable-extensions')
     crome_options.add_argument('--profile-directory=Default')
     crome_options.add_argument("--incognito")
-    crome_options.add_argument("--disable-plugins-discovery");
-
-    driver = webdriver.Chrome(r'./chromedriver.exe', options=crome_options)
+    crome_options.add_argument("start-maximized")
+    crome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    crome_options.add_experimental_option('useAutomationExtension', False)
+    #tem tudo isso de options para evitar a detecção, especialmente pela terabyte.
+    driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', options=crome_options)
     #chrome.delete_all_cookies()
     return driver
 
 
 driver = iniciar()
 
+#mais um comando pra evitar detecção
+driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'})
 
-#Itertools é um loop Eterno dentro da lista de Sites. ∞
+#Itertools é um loop Eterno dentro da lista dos Sites ∞
 for site in itertools.cycle(sites):
     adrs = "https://" + str(site)
 
@@ -56,7 +62,7 @@ for site in itertools.cycle(sites):
             procurarProdutosKabum(driver, limite)
         except(TimeoutException):
             print('erro Kabum')
-            driver.save_screenshot('errokabum.png')
+            #driver.save_screenshot('errokabum.png')
             driver.close
 
     if "pichau" in adrs:
@@ -66,7 +72,7 @@ for site in itertools.cycle(sites):
             procurarProdutosPichau(driver, limite)
         except(TimeoutException):
             print('Erro na Pichau')
-            driver.save_screenshot('erropichau.png')
+            #driver.save_screenshot('erropichau.png')
             time.sleep(1)
 
     if "terabyteshop" in adrs:
@@ -77,6 +83,6 @@ for site in itertools.cycle(sites):
             procurarProdutosTera(driver, limite)
         except(TimeoutException):
             print('erro na Terabyte')
-            driver.save_screenshot('erroterabyte.png')
+            #driver.save_screenshot('erroterabyte.png')
             driver.close
 driver.quit()

@@ -8,14 +8,15 @@ def procurarProdutosKabum(driver, limite):
 
     cls()
     print('****************************************************************************************Kabum*******************************************************************************************')
-    listaProdutos = driver.find_elements_by_css_selector('div.sc-GEbAx.odTaK.productCard') #Encontra os cards dos Produtos
-                                                              #sc-GEbAx.odTaK.productCard
+    listaProdutos = driver.find_elements_by_css_selector('div.sc-HzFiz.jZYkIK.productCard') #Encontra os cards dos Produtos
+
     #Lista dos Produtos
     disponiveis = []
     indisponiveis = []
 
     for p in listaProdutos:
-        nomeProduto = p.find_element(By.CSS_SELECTOR, 'h2.sc-kHOZwM.brabbc.sc-fHeRUh.jwXwUJ.nameCard').text #Encontra os card do Nome
+        #sc-kIKDeO JmyVF sc-fIavCj ehdVvu nameCard
+        nomeProduto = p.find_element(By.CSS_SELECTOR, 'h2.sc-kIKDeO.JmyVF.sc-fIavCj.ehdVvu.nameCard').text #Encontra os card do Nome
 
         #Tenta ver se o texto do preço existe, e entra pra lista de Disponiveis se estiver dentro do valor limite.
         try:
