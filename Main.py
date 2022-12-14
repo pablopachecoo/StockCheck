@@ -17,7 +17,7 @@ LOGGER.setLevel(logging.WARNING)
 limite = float(300.00)
 
 
-sites = ['www.kabum.com.br/busca?query=oooi',
+sites = ['www.kabum.com.br/busca/rx-6900',
      'www.pichau.com.br/hardware/placa-de-video?rgpu=6347',
      'www.terabyteshop.com.br/busca?str=RX+6900+16GB']
 
@@ -36,12 +36,22 @@ def iniciar():
     crome_options.add_argument('--profile-directory=Default')
     crome_options.add_argument("--incognito")
     crome_options.add_argument("start-maximized")
-    crome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    crome_options.add_experimental_option('useAutomationExtension', False)
-    #tem tudo isso de options para evitar a detecção, especialmente pela terabyte.
-    driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', options=crome_options)
-    #chrome.delete_all_cookies()
+    driver = webdriver.Chrome(executable_path=r'chromedriver.exe', options=crome_options)
+    #driver = webdriver.Chrome('./chromedriver.exe') 
     return driver
+
+
+    #crome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    
+
+
+
+
+    #crome_options.add_experimental_option('useAutomationExtension', False)
+    #tem tudo isso de options para evitar a detecção, especialmente pela terabyte.
+    
+    #chrome.delete_all_cookies()
+    
 
 
 driver = iniciar()
